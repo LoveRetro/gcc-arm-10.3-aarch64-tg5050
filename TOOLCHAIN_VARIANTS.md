@@ -160,3 +160,22 @@ file /opt/x86_64-aarch64-nextui-linux-gnu/bin/aarch64-nextui-linux-gnu-gcc
 - **Comprehensive checksums:** Multiple hash algorithms for verification
 
 Both toolchains include the same core components (GCC 10.3.0, glibc 2.33, binutils 2.36.1, GDB 10.2, ISL 0.18, Linux Headers 5.15) with variant-specific naming and optimization settings.
+
+## Known Limitations
+
+### libsanitizer Disabled
+
+The toolchains are built with libsanitizer disabled due to incompatibility between GCC 10.3.0's libsanitizer and Linux kernel headers >= 5.14. The build would fail with:
+```
+fatal error: linux/cyclades.h: No such file or directory
+```
+
+This header was removed in kernel 5.14. Since we use Linux 5.15 headers for modern system call support, libsanitizer has been disabled.
+
+**Impact:** Address Sanitizer (ASan), Thread Sanitizer (TSan), and other sanitizer tools are not available in these toolchains.
+
+**Workaround:** For projects requiring sanitizer support, either:
+- Use a newer GCC version (11+ has fixed libsanitizer)
+- Use older kernel headers (< 5.14) if sanitizers are critical
+
+Reference: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100379
