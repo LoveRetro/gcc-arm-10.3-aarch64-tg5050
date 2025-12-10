@@ -181,8 +181,8 @@ run_toolchain_build() {
         bash -c "
             # Ensure proper permissions for mounted directories
             sudo chown -R builder:builder /home/builder/work
-            # Fix output directory permissions - make it writable
-            sudo chmod 777 /output
+            # Create output subdirectory owned by builder
+            mkdir -p /output/build_output && sudo chown builder:builder /output/build_output
             cd /home/builder/work
             ct-ng build.${BUILD_JOBS}
             echo 'Build completed, locating toolchain...'
@@ -224,10 +224,12 @@ run_toolchain_build() {
                 exit 1
             fi
             
-            # Create archive inside container
+            # Create archive inside container, write to subdirectory first
             echo 'Creating toolchain archive...'
             cd \$(dirname \"\$TOOLCHAIN_DIR\")
-            tar -czf /output/aarch64-nextui-toolchain.tar.gz \$(basename \"\$TOOLCHAIN_DIR\")
+            tar -czf /output/build_output/aarch64-nextui-toolchain.tar.gz \$(basename \"\$TOOLCHAIN_DIR\")
+            # Move to final location with sudo
+            sudo mv /output/build_output/aarch64-nextui-toolchain.tar.gz /output/
             echo 'Archive created successfully'
         "
     
