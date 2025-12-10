@@ -1,6 +1,6 @@
 # NextUI ARM64 Cross-Compilation Toolchain
 
-A simplified, production-ready GCC 8.3.0 cross-compilation toolchain for ARM64/AArch64 development built with crosstool-NG.
+A simplified, production-ready GCC 10.3.1 cross-compilation toolchain for ARM64/AArch64 development built with crosstool-NG.
 
 ## Quick Start
 
@@ -10,7 +10,7 @@ A simplified, production-ready GCC 8.3.0 cross-compilation toolchain for ARM64/A
 
 # The script will:
 # 1. Build Docker container with crosstool-NG
-# 2. Compile GCC 8.3.0 toolchain directly to /opt/aarch64-nextui-linux-gnu
+# 2. Compile GCC 10.3.1 toolchain directly to /opt/aarch64-nextui-linux-gnu
 # 3. Extract complete toolchain with all headers and libraries
 # 4. Create deployment-ready tarball (390MB)
 ```
@@ -23,10 +23,11 @@ A simplified, production-ready GCC 8.3.0 cross-compilation toolchain for ARM64/A
 - **ABI:** aarch64-nextui-linux-gnu
 
 ### Components:
-- **GCC 8.3.0** - C/C++ compiler with full language support
-- **glibc 2.28** - Complete C standard library
-- **binutils 2.31.1** - Assembler, linker, and binary utilities
-- **GDB 8.2.1** - Cross-debugger
+- **GCC 10.3.1** - C/C++ compiler with full language support
+- **glibc 2.33** - Complete C standard library
+- **binutils 2.36.1** - Assembler, linker, and binary utilities
+- **GDB 10.2** - Cross-debugger
+- **ISL 0.18** - Integer Set Library for loop optimization
 - **Complete sysroot** - All headers and target libraries
 
 ## Usage with Docker

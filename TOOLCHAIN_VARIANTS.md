@@ -159,4 +159,4 @@ file /opt/x86_64-aarch64-nextui-linux-gnu/bin/aarch64-nextui-linux-gnu-gcc
 - **Compressed artifacts:** XZ compression for smaller downloads
 - **Comprehensive checksums:** Multiple hash algorithms for verification
 
-Both toolchains include the same core components (GCC 8.3.0, glibc 2.28, binutils 2.31.1, GDB 8.2.1) with variant-specific naming and optimization settings.
+Both toolchains include the same core components (GCC 10.3.1, glibc 2.33, binutils 2.36.1, GDB 10.2, ISL 0.18) with variant-specific naming and optimization settings.

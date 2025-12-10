@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# x86_64 Host to ARM64 Target GCC 8.3.0 Toolchain Build Script
+# x86_64 Host to ARM64 Target GCC 10.3.1 Toolchain Build Script
 # Builds directly to /opt/x86_64-aarch64-linux-gnu
 # Reuses existing build infrastructure from build-toolchain.sh
 
@@ -266,7 +266,7 @@ verify_package() {
 main() {
     local start_time=$(date +%s)
     
-    log_info "Starting x86_64 host ARM64 GCC 8.3.0 toolchain build..."
+    log_info "Starting x86_64 host ARM64 GCC 10.3.1 toolchain build..."
     log_info "Host OS: $OS"
     log_info "Host Architecture: $(uname -m)"
     log_info "Target: /opt/x86_64-aarch64-nextui-linux-gnu"

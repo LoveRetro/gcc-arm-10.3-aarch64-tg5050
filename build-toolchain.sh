@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Simple ARM64 GCC 8.3.0 Toolchain Build Script
+# Simple ARM64 GCC 10.3.1 Toolchain Build Script
 # Builds directly to /opt/aarch64-nextui-linux-gnu with minimal post-processing
 
 set -euo pipefail
@@ -266,7 +266,7 @@ verify_package() {
 main() {
     local start_time=$(date +%s)
     
-    log_info "Starting simplified ARM64 GCC 8.3.0 toolchain build..."
+    log_info "Starting simplified ARM64 GCC 10.3.1 toolchain build..."
     log_info "Operating System: $OS"
     log_info "Target: /opt/aarch64-nextui-linux-gnu"
     log_info "Build Jobs: $BUILD_JOBS"
