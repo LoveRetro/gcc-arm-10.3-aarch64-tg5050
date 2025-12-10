@@ -177,7 +177,8 @@ run_toolchain_build() {
         bash -c "
             # Ensure proper permissions for mounted directories
             sudo chown -R builder:builder /home/builder/work
-            sudo chown -R builder:builder /output
+            # Fix output directory permissions - make it writable
+            sudo chmod 777 /output
             cd /home/builder/work
             
             echo 'Container architecture info:'

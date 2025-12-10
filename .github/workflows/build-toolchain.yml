@@ -115,7 +115,8 @@ jobs:
         id: artifact-info
         if: steps.should-build.outputs.should-run == 'true'
         run: |
-          ARTIFACT_NAME="gcc-${{ env.TOOLCHAIN_VERSION }}-${{ matrix.target_arch }}-toolchain-${{ steps.build-info.outputs.commit }}"
+          # Use fixed artifact name pattern for reliable download in verify job
+          ARTIFACT_NAME="toolchain-${{ matrix.variant }}-${{ github.run_id }}"
           echo "name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
           echo "Artifact name: ${ARTIFACT_NAME}" >> $GITHUB_STEP_SUMMARY
 
@@ -345,7 +346,8 @@ jobs:
       - name: Download toolchain
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.build-toolchain.outputs[matrix.artifact_name_output] }}
+          # Use predictable artifact name pattern
+          name: toolchain-${{ matrix.variant }}-${{ github.run_id }}
         continue-on-error: true  # Allow individual toolchain verification to fail
         id: download
 
@@ -361,7 +363,6 @@ jobs:
           fi
 
           # Verify all checksums
-          echo "Expected checksum: ${{ needs.build-toolchain.outputs[matrix.checksum_output] }}"
           sha256sum -c checksums-${{ matrix.variant }}.txt
           sha512sum -c checksums-${{ matrix.variant }}.txt
           md5sum -c checksums-${{ matrix.variant }}.txt
@@ -494,9 +495,7 @@ jobs:
           echo "- Variant: ${{ matrix.variant }}" >> $GITHUB_STEP_SUMMARY
           echo "- Target: ${{ matrix.target_arch }}" >> $GITHUB_STEP_SUMMARY
           echo "- Runner: ${{ matrix.runner_type }} ($(uname -m))" >> $GITHUB_STEP_SUMMARY
-          echo "- Commit: ${{ needs.build-toolchain.outputs.build-commit }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Artifact: ${{ needs.build-toolchain.outputs[matrix.artifact_name_output] }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Checksum: ${{ needs.build-toolchain.outputs[matrix.checksum_output] }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Artifact: toolchain-${{ matrix.variant }}-${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ **${{ matrix.variant }} verification passed successfully!**" >> $GITHUB_STEP_SUMMARY
 

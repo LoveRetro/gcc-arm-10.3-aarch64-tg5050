@@ -31,6 +31,8 @@ A simplified, production-ready GCC 10.3.0 cross-compilation toolchain for ARM64/
 - **Linux Headers 5.15** - Modern kernel headers for system calls
 - **Complete sysroot** - All headers and target libraries
 
+**Note:** libsanitizer is disabled due to incompatibility with kernel headers >= 5.14. See TOOLCHAIN_VARIANTS.md for details.
+
 ## Usage with Docker
 
 The toolchain is designed to work in Docker containers:
