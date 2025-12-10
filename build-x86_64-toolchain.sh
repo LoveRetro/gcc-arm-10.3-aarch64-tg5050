@@ -177,8 +177,8 @@ run_toolchain_build() {
         bash -c "
             # Ensure proper permissions for mounted directories
             sudo chown -R builder:builder /home/builder/work
-            # Create output subdirectory owned by builder
-            mkdir -p /output/build_output && sudo chown builder:builder /output/build_output
+            # Fix output directory permissions - make it writable
+            sudo chmod 777 /output
             cd /home/builder/work
             
             echo 'Container architecture info:'
@@ -225,12 +225,10 @@ run_toolchain_build() {
                 exit 1
             fi
             
-            # Create archive inside container, write to subdirectory first
+            # Create archive inside container
             echo 'Creating toolchain archive...'
             cd \$(dirname \"\$TOOLCHAIN_DIR\")
-            tar -czf /output/build_output/${OUTPUT_PACKAGE} \$(basename \"\$TOOLCHAIN_DIR\")
-            # Move to final location with sudo
-            sudo mv /output/build_output/${OUTPUT_PACKAGE} /output/
+            tar -czf /output/${OUTPUT_PACKAGE} \$(basename \"\$TOOLCHAIN_DIR\")
             echo 'Archive created successfully'
         "
     
